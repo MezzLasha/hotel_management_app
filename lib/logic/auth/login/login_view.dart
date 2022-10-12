@@ -8,6 +8,7 @@ import 'package:hotel_management_app/logic/auth/auth_repository.dart';
 import 'package:hotel_management_app/logic/auth/form_submission_status.dart';
 import 'package:hotel_management_app/logic/auth/login/login_event.dart';
 import 'package:hotel_management_app/logic/auth/register/register_view.dart';
+import 'package:hotel_management_app/logic/home/dashboard/dashboard_view.dart';
 import 'package:hotel_management_app/presentation/myWidgets/customWidgets.dart';
 
 import 'login_bloc.dart';
@@ -147,6 +148,9 @@ class LoginView extends StatelessWidget {
         final formStatus = state.formStatus;
         if (formStatus is SubmissionFailed) {
           showSnackBar(context, formStatus.exception.toString());
+        } else if (formStatus is SubmissionSuccess) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: ((context) => DashboardView())));
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(

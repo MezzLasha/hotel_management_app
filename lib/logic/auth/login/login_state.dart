@@ -19,7 +19,7 @@ class LoginState {
 
   final String password;
   bool get isValidPassword {
-    return password.length > 3;
+    return password.length >= 3;
   }
 
   final FormSubmissionStatus formStatus;

@@ -20,11 +20,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(state.copyWith(formStatus: FormSubmitting()));
 
         try {
-          await authRepo.login();
+          await authRepo.login(state.email, state.password);
           emit(state.copyWith(formStatus: SubmissionSuccess()));
-        } catch (e) {
-          emit(state.copyWith(
-              formStatus: SubmissionFailed(exception: e as Exception)));
+        } on Exception catch (e) {
+          emit(state.copyWith(formStatus: SubmissionFailed(exception: e)));
         }
       }
     });
