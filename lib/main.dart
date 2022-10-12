@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotel_management_app/logic/LoginAuth/bloc/auth_bloc.dart';
-import 'package:hotel_management_app/presentation/pages/loginPage.dart';
+import 'package:hotel_management_app/logic/auth/auth_repository.dart';
+import 'package:hotel_management_app/logic/auth/login/login_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,10 +12,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiRepositoryProvider(
       providers: [
-        BlocProvider<AuthBloc>(
-          create: (BuildContext context) => AuthBloc(),
+        RepositoryProvider<AuthRepository>(
+          create: (context) => AuthRepository(),
         ),
       ],
       child: MaterialApp(
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const LoginPage(),
+        home: LoginView(),
       ),
     );
   }
