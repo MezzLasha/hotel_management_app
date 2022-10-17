@@ -57,6 +57,7 @@ class RegisterView extends StatelessWidget {
                       alignment: Alignment.bottomCenter,
                       padding: const EdgeInsets.only(bottom: 80),
                       child: FloatingActionButton.extended(
+                        heroTag: 'register',
                         onPressed: (() {
                           if (_registerFormKey.currentState != null &&
                               _registerFormKey.currentState!.validate()) {

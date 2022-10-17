@@ -19,9 +19,10 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Hotel Management',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          useMaterial3: true,
+          primarySwatch: Colors.deepPurple,
         ),
         home: LoginView(),
       ),

@@ -40,6 +40,8 @@ class LoginView extends StatelessWidget {
     );
   }
 
+  Widget register = RegisterView();
+
   Container _registerButton() {
     return Container(
       alignment: Alignment.bottomRight,
@@ -58,7 +60,7 @@ class LoginView extends StatelessWidget {
               icon: const Icon(Icons.add_circle_outline));
         }),
         openBuilder: ((context, action) {
-          return RegisterView();
+          return register;
         }),
         closedShape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(24.0))),
@@ -72,16 +74,17 @@ class LoginView extends StatelessWidget {
       height: 300,
       width: double.infinity,
       decoration: const BoxDecoration(
-        color: Colors.deepPurpleAccent,
-      ),
+          image: DecorationImage(
+              image: AssetImage('assets/images/hotel_pattern.png'),
+              fit: BoxFit.cover)),
       child: Container(
-        margin: const EdgeInsets.only(left: 40, right: 30),
+        margin: const EdgeInsets.only(left: 30, right: 30),
         child: Center(
           child: Text('Welcome To Mega',
               style: GoogleFonts.manrope(
                   fontSize: 54,
                   height: 1.4,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w700,
                   color: Colors.white)),
         ),
       ),
@@ -149,7 +152,7 @@ class LoginView extends StatelessWidget {
         if (formStatus is SubmissionFailed) {
           showSnackBar(context, formStatus.exception.toString());
         } else if (formStatus is SubmissionSuccess) {
-          Navigator.push(context,
+          Navigator.pushReplacement(context,
               MaterialPageRoute(builder: ((context) => DashboardView())));
         }
       },
@@ -164,6 +167,7 @@ class LoginView extends StatelessWidget {
             return Container(
                 padding: const EdgeInsets.all(14),
                 child: FloatingActionButton.extended(
+                    heroTag: 'login',
                     onPressed: () {
                       if (_formKey.currentState != null &&
                           _formKey.currentState!.validate()) {
