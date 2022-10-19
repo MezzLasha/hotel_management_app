@@ -18,6 +18,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       } else if (event is RegisterIdChanged) {
         //id changed
         emit(state.copyWith(id: event.id));
+      } else if (event is RegisterNameChanged) {
+        emit(state.copyWith(name: event.name));
       } else if (event is RegisterPhoneChanged) {
         //phone changed
         emit(state.copyWith(phone: event.phone));
@@ -27,10 +29,12 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       } else if (event is RegisterSubmitted) {
         //form submitted
         emit(state.copyWith(formStatus: FormSubmitting()));
-
         try {
-          await authRepo.register();
-          emit(state.copyWith(formStatus: SubmissionSuccess()));
+          await authRepo
+              .register(state.email, state.password, state.name, state.id,
+                  state.phone, '', '', 1)
+              .then((value) => emit(
+                  state.copyWith(formStatus: SubmissionSuccess(user: value))));
         } catch (e) {
           emit(state.copyWith(
               formStatus: SubmissionFailed(exception: e as Exception)));

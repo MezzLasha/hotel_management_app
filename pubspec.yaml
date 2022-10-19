@@ -30,8 +30,10 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   animations: ^2.0.7
+  auto_size_text: ^3.0.0
   bloc: ^8.1.0
   bloc_test: ^9.1.0
+  collection: ^1.17.0
   cupertino_icons: ^1.0.2
   figma_squircle: ^0.5.3
   flutter:
@@ -41,6 +43,8 @@ dependencies:
   google_fonts: ^3.0.1
   hydrated_bloc: ^8.1.0
   scale_button: ^2.1.2
+  sticky_grouped_list: ^3.1.0
+  tap_to_expand: ^0.6.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0

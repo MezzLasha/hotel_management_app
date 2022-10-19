@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_management_app/logic/auth/auth_repository.dart';
 import 'package:hotel_management_app/logic/auth/login/login_view.dart';
+import 'package:hotel_management_app/logic/home/dashboard/repo/dashboard_repository.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,8 +20,12 @@ class MyApp extends StatelessWidget {
         RepositoryProvider<AuthRepository>(
           create: (context) => AuthRepository(),
         ),
+        RepositoryProvider<DashboardRepository>(
+          create: (context) => DashboardRepository(),
+        ),
       ],
       child: MaterialApp(
+        scrollBehavior: MyCustomScrollBehavior(),
         title: 'Hotel Management',
         theme: ThemeData(
           useMaterial3: true,
@@ -28,4 +35,14 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+}
+
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        // etc.
+      };
 }

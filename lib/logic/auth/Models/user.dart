@@ -63,13 +63,13 @@ class User {
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
       id: map['U_ID'] as int,
-      mail: map['U_MAIL'] as String,
-      password: map['U_PASS'] as String,
-      name: map['U_NAME'] as String,
-      identification: map['U_IDENT'] as String,
-      phone: map['U_TEL'] as String,
-      comment: map['U_COMMENT'] as String,
-      lang: map['U_LANG'] as String,
+      mail: map['U_MAIL'].toString(),
+      password: map['U_PASS'].toString(),
+      name: map['U_NAME'].toString(),
+      identification: map['U_IDENT'].toString(),
+      phone: map['U_TEL'].toString(),
+      comment: map['U_COMMENT'].toString(),
+      lang: map['U_LANG'].toString(),
       active: map['U_ACTIVE'] as int,
     );
   }

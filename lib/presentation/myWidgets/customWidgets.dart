@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:scale_button/scale_button.dart';
 
@@ -13,12 +12,16 @@ void showSnackBar(BuildContext context, String message) {
 class CircularButton extends StatelessWidget {
   final Widget icon;
   final void Function() onPressed;
+  final double? radius;
+  final Color? backgroundColor;
 
-  const CircularButton({
-    Key? key,
-    required this.icon,
-    required this.onPressed,
-  }) : super(key: key);
+  const CircularButton(
+      {Key? key,
+      required this.icon,
+      required this.onPressed,
+      this.radius,
+      this.backgroundColor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +29,11 @@ class CircularButton extends StatelessWidget {
       bound: 0.07,
       duration: const Duration(milliseconds: 150),
       child: CircleAvatar(
-        radius: 30,
-        backgroundColor: const Color.fromARGB(12, 0, 0, 0),
+        radius: radius ?? 30,
+        backgroundColor: backgroundColor ?? const Color.fromARGB(12, 0, 0, 0),
         child: SizedBox(
-          width: 60,
-          height: 60,
+          width: radius != null ? radius! * 2 : 60,
+          height: radius != null ? radius! * 2 : 60,
           child: IconButton(
             color: Theme.of(context).primaryColor,
             icon: icon,
@@ -38,6 +41,26 @@ class CircularButton extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ScalingButton extends StatelessWidget {
+  final Widget child;
+  final Function? onPressed;
+  const ScalingButton({super.key, required this.child, this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaleButton(
+      bound: 0.07,
+      onTap: () {
+        if (onPressed != null) {
+          onPressed!();
+        }
+      },
+      duration: const Duration(milliseconds: 150),
+      child: child,
     );
   }
 }

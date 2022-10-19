@@ -7,6 +7,8 @@ import 'package:hotel_management_app/logic/auth/register/register_event.dart';
 import 'package:hotel_management_app/logic/auth/register/register_state.dart';
 
 import '../../../presentation/myWidgets/customWidgets.dart';
+import '../../home/dashboard/bloc/dashboard_view.dart';
+import '../Models/user.dart';
 
 class RegisterView extends StatelessWidget {
   RegisterView({super.key});
@@ -24,8 +26,15 @@ class RegisterView extends StatelessWidget {
         ),
         child: BlocListener<RegisterBloc, RegisterState>(
           listener: (context, state) {
-            if (state.formStatus is SubmissionFailed) {
+            final formStatus = state.formStatus;
+            if (formStatus is SubmissionFailed) {
               showSnackBar(context, 'რეგისტრაცია ვერ მოხერხდა, სცადეთ ახლიდან');
+            } else if (formStatus is SubmissionSuccess) {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) =>
+                          DashboardView(user: formStatus.user))));
             }
           },
           child: Stack(
