@@ -27,6 +27,7 @@ class _DashboardViewState extends State<DashboardView> {
     var size = (MediaQuery.of(context).size.width - 92) / 3;
     return Scaffold(
         appBar: buildAppBar(context),
+        resizeToAvoidBottomInset: true,
         body: BlocProvider(
           create: (context) {
             return DashboardBloc(
@@ -47,8 +48,95 @@ class _DashboardViewState extends State<DashboardView> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 16.0, right: 16),
                     child: ListView.builder(
-                      itemCount: groupList.length,
+                      itemCount: groupList.length + 1,
                       itemBuilder: (_, index) {
+                        if (index == groupList.length) {
+                          return Container(
+                              alignment: Alignment.centerRight,
+                              padding: const EdgeInsets.only(bottom: 16.0),
+                              child: FloatingActionButton.extended(
+                                onPressed: () {
+                                  showMyBottomDialog(
+                                      context,
+                                      [
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        TextFormField(
+                                          validator: (value) => (value ?? '')
+                                                      .length >
+                                                  2
+                                              ? null
+                                              : 'მეტი უნდა იყოს 2 სიმბოლოზე',
+                                          initialValue: '',
+                                          autofocus: true,
+                                          decoration: const InputDecoration(
+                                              labelText: 'ჯგუფის სახელი',
+                                              border: OutlineInputBorder()),
+                                        ),
+                                        const SizedBox(
+                                          height: 25,
+                                        ),
+                                        TextFormField(
+                                          controller: objectName,
+                                          validator: (value) => (value ?? '')
+                                                      .length >
+                                                  2
+                                              ? null
+                                              : 'მეტი უნდა იყოს 2 სიმბოლოზე',
+                                          decoration: const InputDecoration(
+                                              labelText: 'ობიექტის სახელი',
+                                              border: OutlineInputBorder()),
+                                        ),
+                                        const SizedBox(
+                                          height: 25,
+                                        ),
+                                        TextFormField(
+                                          controller: objectInfo,
+                                          validator: (value) => (value ?? '')
+                                                      .length >
+                                                  2
+                                              ? null
+                                              : 'მეტი უნდა იყოს 2 სიმბოლოზე',
+                                          decoration: const InputDecoration(
+                                              labelText: 'ობიექტის ინფორმაცია',
+                                              border: OutlineInputBorder()),
+                                        ),
+                                        const SizedBox(
+                                          height: 25,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              height: 40,
+                                              child: MyOutlineButton(
+                                                child: const Text('უკან'),
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 40,
+                                              child: MyOutlineButton(
+                                                child: const Text('დამატება'),
+                                                onPressed: () {},
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                      ],
+                                      _addGroupKey);
+                                },
+                                label: const Text('ჯგუფის შექმნა'),
+                                icon: const Icon(Icons.add_box_outlined),
+                              ));
+                        }
                         List<Room> sortedRooms = state.rooms
                             .where(
                                 (element) => element.group == groupList[index])
@@ -72,7 +160,7 @@ class _DashboardViewState extends State<DashboardView> {
                           ),
                           boxShadow: const [],
                           color: const Color.fromARGB(12, 0, 0, 0),
-                          startCollapsed: true,
+                          startCollapsed: false,
                           title: Text(
                             groupList[index],
                             style: GoogleFonts.inter(),
@@ -206,6 +294,7 @@ class _DashboardViewState extends State<DashboardView> {
   }
 
   final _addObjectToGroupKey = GlobalKey<FormState>();
+  final _addGroupKey = GlobalKey<FormState>();
 
   Widget buildRoomButton(Room room) {
     var size = (MediaQuery.of(context).size.width - 92) / 3;

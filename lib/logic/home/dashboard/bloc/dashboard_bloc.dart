@@ -2,8 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:hotel_management_app/logic/auth/Models/user.dart';
 import 'package:hotel_management_app/logic/home/dashboard/repo/dashboard_repository.dart';
 import 'package:hotel_management_app/logic/home/models/room.dart';
-import 'package:meta/meta.dart';
-
 part 'dashboard_event.dart';
 part 'dashboard_state.dart';
 
