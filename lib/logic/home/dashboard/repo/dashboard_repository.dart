@@ -18,4 +18,17 @@ class DashboardRepository {
       throw Exception('არასწორი პაროლი');
     }
   }
+
+  Future<void> addRoomToGroup(String email, String password, String objName,
+      String objInfo, String groupName) async {
+    Uri url = Uri.parse(
+        'https://megaplus.ge/APPARTMENTS/?ACT=7&MAIL="$email"&PASS="$password"&O_NAME="$objName"&O_GROUP="$groupName"&O_INFO="$objInfo"&O_STATUS=\'2\'');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      return Future.value(null);
+    } else {
+      throw Exception('არასწორი პაროლი');
+    }
+  }
 }

@@ -1,7 +1,9 @@
 import 'dart:ui';
 
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hotel_management_app/logic/auth/auth_repository.dart';
 import 'package:hotel_management_app/logic/auth/login/login_view.dart';
 import 'package:hotel_management_app/logic/home/dashboard/repo/dashboard_repository.dart';
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
         title: 'Hotel Management',
         theme: ThemeData(
           useMaterial3: true,
-          primarySwatch: Colors.deepPurple,
+          fontFamily: GoogleFonts.inter().fontFamily,
         ),
         home: LoginView(),
       ),
