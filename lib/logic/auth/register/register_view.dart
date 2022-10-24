@@ -102,7 +102,7 @@ class RegisterView extends StatelessWidget {
                 .add(RegisterEmailChanged(email: value)),
             decoration: const InputDecoration(
                 icon: Icon(Icons.alternate_email),
-                hintText: 'ელ. ფოსტა',
+                labelText: 'ელ. ფოსტა',
                 border: OutlineInputBorder()),
           );
         },
@@ -125,7 +125,7 @@ class RegisterView extends StatelessWidget {
                 .add(RegisterPasswordChanged(password: value)),
             decoration: const InputDecoration(
                 icon: Icon(Icons.password),
-                hintText: 'პაროლი',
+                labelText: 'პაროლი',
                 border: OutlineInputBorder()),
           );
         },
@@ -147,7 +147,7 @@ class RegisterView extends StatelessWidget {
                 .add(RegisterPasswordConfirmChanged(confirmPassword: value)),
             decoration: const InputDecoration(
                 icon: Icon(Icons.password),
-                hintText: 'პაროლის დამოწმება',
+                labelText: 'პაროლის დამოწმება',
                 border: OutlineInputBorder()),
           );
         },
@@ -167,7 +167,7 @@ class RegisterView extends StatelessWidget {
                 .add(RegisterNameChanged(name: value)),
             decoration: const InputDecoration(
                 icon: Icon(Icons.person),
-                hintText: 'სახელი',
+                labelText: 'სახელი',
                 border: OutlineInputBorder()),
           );
         },
@@ -188,7 +188,7 @@ class RegisterView extends StatelessWidget {
                 context.read<RegisterBloc>().add(RegisterIdChanged(id: value)),
             decoration: const InputDecoration(
                 icon: Icon(Icons.perm_identity),
-                hintText: 'პირადი ნომერი',
+                labelText: 'პირადი ნომერი',
                 border: OutlineInputBorder()),
           );
         },
@@ -209,7 +209,7 @@ class RegisterView extends StatelessWidget {
                 .add(RegisterPhoneChanged(phone: value)),
             decoration: const InputDecoration(
                 icon: Icon(Icons.phone),
-                hintText: 'ტელეფონის ნომერი',
+                labelText: 'ტელეფონის ნომერი',
                 border: OutlineInputBorder()),
           );
         },

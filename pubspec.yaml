@@ -44,6 +44,7 @@ dependencies:
   hydrated_bloc: ^8.1.0
   modal_bottom_sheet: ^2.1.2
   scale_button: ^2.1.2
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_lints: ^2.0.0

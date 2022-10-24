@@ -116,7 +116,7 @@ class LoginView extends StatelessWidget {
                 context.read<LoginBloc>().add(LoginEmailChanged(email: value)),
             decoration: const InputDecoration(
                 icon: Icon(Icons.alternate_email),
-                hintText: 'ელ. ფოსტა',
+                labelText: 'ელ. ფოსტა',
                 border: OutlineInputBorder()),
           );
         },
@@ -138,7 +138,7 @@ class LoginView extends StatelessWidget {
                 .add(LoginPasswordChanged(password: value)),
             decoration: const InputDecoration(
                 icon: Icon(Icons.password),
-                hintText: 'პაროლი',
+                labelText: 'პაროლი',
                 border: OutlineInputBorder()),
           );
         },

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:hotel_management_app/logic/auth/Models/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepository {
   Future<User> login(String email, String password) async {
@@ -21,6 +22,9 @@ class AuthRepository {
         print(userdata);
       }
       var user = User.fromJson(userdata);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('savedUser', user.toJson());
+
       return user;
     } else {
       throw Exception('არასწორი პაროლი');
