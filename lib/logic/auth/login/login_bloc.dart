@@ -26,6 +26,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           print(e);
           emit(state.copyWith(formStatus: SubmissionFailed(exception: e)));
         }
+      } else if (event is SubmissionReset) {
+        emit(state.copyWith(formStatus: const InitialFormStatus()));
       }
     });
   }

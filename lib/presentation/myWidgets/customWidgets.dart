@@ -153,9 +153,13 @@ Future<dynamic> showMyBottomDialog(
               padding: const EdgeInsets.fromLTRB(20, 17, 20, 20),
               child: Form(
                 key: formKey,
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [const DragHandlePill(), ...children]),
+                child: Column(mainAxisSize: MainAxisSize.min, children: [
+                  const DragHandlePill(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ...children
+                ]),
               ),
             ));
       });

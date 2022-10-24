@@ -27,7 +27,7 @@ class AuthRepository {
 
       return user;
     } else {
-      throw Exception('არასწორი პაროლი');
+      throw Exception('მონაცემები არასწორია');
     }
   }
 

@@ -10,6 +10,8 @@ import 'package:hotel_management_app/logic/auth/auth_repository.dart';
 import 'package:hotel_management_app/logic/auth/login/login_view.dart';
 import 'package:hotel_management_app/logic/home/dashboard/bloc/dashboard_view.dart';
 import 'package:hotel_management_app/logic/home/dashboard/repo/dashboard_repository.dart';
+import 'package:hotel_management_app/logic/home/profile/bloc/profile_bloc.dart';
+import 'package:hotel_management_app/logic/home/profile/repo/profile_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -44,6 +46,9 @@ class MyApp extends StatelessWidget {
         ),
         RepositoryProvider<DashboardRepository>(
           create: (context) => DashboardRepository(),
+        ),
+        RepositoryProvider<ProfileRepo>(
+          create: (context) => ProfileRepo(),
         ),
       ],
       child: MaterialApp(

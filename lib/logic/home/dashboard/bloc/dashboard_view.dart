@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hotel_management_app/logic/auth/Models/user.dart';
 import 'package:hotel_management_app/logic/home/dashboard/repo/dashboard_repository.dart';
 import 'package:hotel_management_app/logic/home/models/room.dart';
+import 'package:hotel_management_app/logic/home/profile/bloc/profile_view.dart';
 import 'package:hotel_management_app/presentation/myWidgets/customWidgets.dart';
 import 'package:hotel_management_app/presentation/myWidgets/myTapToExpand.dart';
 
@@ -13,7 +14,7 @@ import 'dashboard_bloc.dart';
 class DashboardView extends StatefulWidget {
   final User user;
 
-  DashboardView({super.key, required this.user});
+  const DashboardView({super.key, required this.user});
 
   @override
   State<DashboardView> createState() => _DashboardViewState();
@@ -28,6 +29,78 @@ class _DashboardViewState extends State<DashboardView> {
     return Scaffold(
         appBar: buildAppBar(context),
         resizeToAvoidBottomInset: true,
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            showMyBottomDialog(
+                context,
+                [
+                  TextFormField(
+                    validator: (value) => (value ?? '').length > 2
+                        ? null
+                        : 'მეტი უნდა იყოს 2 სიმბოლოზე',
+                    initialValue: '',
+                    autofocus: true,
+                    decoration: const InputDecoration(
+                        labelText: 'ჯგუფის სახელი',
+                        border: OutlineInputBorder()),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  TextFormField(
+                    controller: objectName,
+                    validator: (value) => (value ?? '').length > 2
+                        ? null
+                        : 'მეტი უნდა იყოს 2 სიმბოლოზე',
+                    decoration: const InputDecoration(
+                        labelText: 'ობიექტის სახელი',
+                        border: OutlineInputBorder()),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  TextFormField(
+                    controller: objectInfo,
+                    validator: (value) => (value ?? '').length > 2
+                        ? null
+                        : 'მეტი უნდა იყოს 2 სიმბოლოზე',
+                    decoration: const InputDecoration(
+                        labelText: 'ობიექტის ინფორმაცია',
+                        border: OutlineInputBorder()),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        height: 40,
+                        child: MyOutlineButton(
+                          child: const Text('უკან'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 40,
+                        child: MyOutlineButton(
+                          child: const Text('დამატება'),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
+                _addGroupKey);
+          },
+          label: const Text('ჯგუფის შექმნა'),
+          icon: const Icon(Icons.add_box_outlined),
+        ),
         body: BlocProvider(
           create: (context) {
             return DashboardBloc(
@@ -48,95 +121,8 @@ class _DashboardViewState extends State<DashboardView> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 16.0, right: 16),
                     child: ListView.builder(
-                      itemCount: groupList.length + 1,
+                      itemCount: groupList.length,
                       itemBuilder: (_, index) {
-                        if (index == groupList.length) {
-                          return Container(
-                              alignment: Alignment.centerRight,
-                              padding: const EdgeInsets.only(bottom: 16.0),
-                              child: FloatingActionButton.extended(
-                                onPressed: () {
-                                  showMyBottomDialog(
-                                      context,
-                                      [
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        TextFormField(
-                                          validator: (value) => (value ?? '')
-                                                      .length >
-                                                  2
-                                              ? null
-                                              : 'მეტი უნდა იყოს 2 სიმბოლოზე',
-                                          initialValue: '',
-                                          autofocus: true,
-                                          decoration: const InputDecoration(
-                                              labelText: 'ჯგუფის სახელი',
-                                              border: OutlineInputBorder()),
-                                        ),
-                                        const SizedBox(
-                                          height: 25,
-                                        ),
-                                        TextFormField(
-                                          controller: objectName,
-                                          validator: (value) => (value ?? '')
-                                                      .length >
-                                                  2
-                                              ? null
-                                              : 'მეტი უნდა იყოს 2 სიმბოლოზე',
-                                          decoration: const InputDecoration(
-                                              labelText: 'ობიექტის სახელი',
-                                              border: OutlineInputBorder()),
-                                        ),
-                                        const SizedBox(
-                                          height: 25,
-                                        ),
-                                        TextFormField(
-                                          controller: objectInfo,
-                                          validator: (value) => (value ?? '')
-                                                      .length >
-                                                  2
-                                              ? null
-                                              : 'მეტი უნდა იყოს 2 სიმბოლოზე',
-                                          decoration: const InputDecoration(
-                                              labelText: 'ობიექტის ინფორმაცია',
-                                              border: OutlineInputBorder()),
-                                        ),
-                                        const SizedBox(
-                                          height: 25,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SizedBox(
-                                              height: 40,
-                                              child: MyOutlineButton(
-                                                child: const Text('უკან'),
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 40,
-                                              child: MyOutlineButton(
-                                                child: const Text('დამატება'),
-                                                onPressed: () {},
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                      ],
-                                      _addGroupKey);
-                                },
-                                label: const Text('ჯგუფის შექმნა'),
-                                icon: const Icon(Icons.add_box_outlined),
-                              ));
-                        }
                         List<Room> sortedRooms = state.rooms
                             .where(
                                 (element) => element.group == groupList[index])
@@ -361,7 +347,15 @@ class _DashboardViewState extends State<DashboardView> {
           ),
           CircularButton(
             icon: const Icon(Icons.person),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileView(
+                      user: widget.user,
+                    ),
+                  ));
+            },
           ),
         ],
       ),

@@ -152,6 +152,7 @@ class LoginView extends StatelessWidget {
         final formStatus = state.formStatus;
         if (formStatus is SubmissionFailed) {
           showSnackBar(context, formStatus.exception.toString());
+          context.read<LoginBloc>().add(SubmissionReset());
         } else if (formStatus is SubmissionSuccess) {
           Navigator.pushReplacement(
               context,
