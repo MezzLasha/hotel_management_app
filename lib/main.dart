@@ -4,6 +4,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_villains/villain.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotel_management_app/logic/auth/Models/user.dart';
 import 'package:hotel_management_app/logic/auth/auth_repository.dart';
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        navigatorObservers: [VillainTransitionObserver()],
         scrollBehavior: MyCustomScrollBehavior(),
         title: 'Hotel Management',
         theme: ThemeData(

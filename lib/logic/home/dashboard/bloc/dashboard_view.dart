@@ -6,6 +6,7 @@ import 'package:hotel_management_app/logic/auth/Models/user.dart';
 import 'package:hotel_management_app/logic/home/dashboard/repo/dashboard_repository.dart';
 import 'package:hotel_management_app/logic/home/models/room.dart';
 import 'package:hotel_management_app/logic/home/profile/bloc/profile_view.dart';
+import 'package:hotel_management_app/logic/home/roomDetail/bloc/room_detail_view.dart';
 import 'package:hotel_management_app/presentation/myWidgets/customWidgets.dart';
 import 'package:hotel_management_app/presentation/myWidgets/myTapToExpand.dart';
 
@@ -285,19 +286,33 @@ class _DashboardViewState extends State<DashboardView> {
   Widget buildRoomButton(Room room) {
     var size = (MediaQuery.of(context).size.width - 92) / 3;
 
-    return ScalingButton(
-      child: Container(
-        margin: const EdgeInsets.all(5),
-        height: size,
-        width: size,
-        decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius:
-                SmoothBorderRadius(cornerRadius: 5, cornerSmoothing: 0.6)),
-        child: Center(
-          child: Text(
-            room.name,
+    return Hero(
+      tag: room.id + room.name + room.group + room.info,
+      child: ScalingButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => RoomDetail(
+                        room: room,
+                      )));
+        },
+        child: Container(
+          margin: const EdgeInsets.all(5),
+          height: size,
+          width: size,
+          decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius:
+                  SmoothBorderRadius(cornerRadius: 5, cornerSmoothing: 0.6)),
+          child: DefaultTextStyle(
             style: GoogleFonts.inter(color: Colors.white),
+            child: Center(
+              child: Text(
+                room.name,
+                style: GoogleFonts.inter(color: Colors.white),
+              ),
+            ),
           ),
         ),
       ),

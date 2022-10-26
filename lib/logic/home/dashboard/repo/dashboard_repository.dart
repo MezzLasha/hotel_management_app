@@ -13,7 +13,20 @@ class DashboardRepository {
       var data = response.body.toString().replaceAll('\'', '"');
       data = data.replaceAll(': None', ': "None"');
       final parsed = json.decode(data);
-      return List<Room>.from(parsed.map((model) => Room.fromJson(model)));
+      var rooms = List<Room>.from(parsed.map((model) => Room.fromJson(model)));
+
+      //TODO - HACKY WAY RN, BACKEND SHOULD PROVIDE MAP OF USERS
+      for (var i = 0; i < rooms.length; i++) {
+        for (var j = 0; j < rooms.length; j++) {
+          if (rooms[i].id == rooms[j].id) {
+            rooms[i] = rooms[i]
+                .copyWith(p_user: '${rooms[i].p_user}~~${rooms[j].p_user}');
+            rooms.removeAt(j);
+          }
+        }
+      }
+
+      return rooms;
     } else {
       throw Exception('არასწორი პაროლი');
     }
