@@ -122,6 +122,7 @@ class _DashboardViewState extends State<DashboardView> {
                     padding: const EdgeInsets.only(left: 16.0, right: 16),
                     child: ListView.builder(
                       controller: ScrollController(),
+                      physics: const AlwaysScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: groupList.length,
                       itemBuilder: (_, index) {

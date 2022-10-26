@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -569,7 +571,38 @@ class _ProfileViewState extends State<ProfileView> {
             },
           ),
           floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {},
+            onPressed: () async {
+              AlertDialog alertDialog = AlertDialog(
+                icon: const Icon(Icons.logout_outlined),
+                content: Text(
+                  'ნამდვილად გსურთ ანგარიშიდან გასვლა?',
+                  style: GoogleFonts.inter(
+                      fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                actionsAlignment: MainAxisAlignment.spaceBetween,
+                actions: [
+                  CircularButton(
+                      icon: const Icon(Icons.arrow_back_ios_new),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }),
+                  CircularButton(
+                      icon: const RotatedBox(
+                          quarterTurns: 2,
+                          child: Icon(Icons.arrow_back_ios_new)),
+                      onPressed: () async {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginView(),
+                            ));
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.remove('savedUser');
+                      }),
+                ],
+              );
+              showDialog(context: context, builder: ((context) => alertDialog));
+            },
             label: const Text('ანგარიშიდან გასვლა'),
             icon: const Icon(Icons.logout_outlined),
           ),
