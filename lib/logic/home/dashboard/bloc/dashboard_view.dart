@@ -26,7 +26,6 @@ class _DashboardViewState extends State<DashboardView> {
   TextEditingController objectInfo = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    var size = (MediaQuery.of(context).size.width - 92) / 3;
     return Scaffold(
         appBar: buildAppBar(context),
         resizeToAvoidBottomInset: true,
@@ -122,6 +121,8 @@ class _DashboardViewState extends State<DashboardView> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 16.0, right: 16),
                     child: ListView.builder(
+                      controller: ScrollController(),
+                      shrinkWrap: true,
                       itemCount: groupList.length,
                       itemBuilder: (_, index) {
                         List<Room> sortedRooms = state.rooms
@@ -132,19 +133,23 @@ class _DashboardViewState extends State<DashboardView> {
                         return TapToExpandMaterial(
                           borderRadius: 5,
                           content: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Wrap(
-                              children: List.generate(sortedRooms.length + 1,
-                                  (index1) {
-                                if (index1 == sortedRooms.length) {
-                                  return buildAddRoomToObjectButton(
-                                      context, groupList[index], size);
-                                } else {
-                                  return buildRoomButton(sortedRooms[index1]);
-                                }
-                              }),
-                            ),
-                          ),
+                              alignment: Alignment.centerLeft,
+                              child: GridView.builder(
+                                  shrinkWrap: true,
+                                  controller: ScrollController(),
+                                  itemCount: sortedRooms.length + 1,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithMaxCrossAxisExtent(
+                                          maxCrossAxisExtent: 150),
+                                  itemBuilder: (context, index1) {
+                                    if (index1 == sortedRooms.length) {
+                                      return buildAddRoomToObjectButton(
+                                          context, groupList[index]);
+                                    } else {
+                                      return buildRoomButton(
+                                          sortedRooms[index1]);
+                                    }
+                                  })),
                           boxShadow: const [],
                           color: const Color.fromARGB(12, 0, 0, 0),
                           startCollapsed: false,
@@ -161,8 +166,7 @@ class _DashboardViewState extends State<DashboardView> {
         ));
   }
 
-  ScalingButton buildAddRoomToObjectButton(
-      BuildContext context, String group, double size) {
+  ScalingButton buildAddRoomToObjectButton(BuildContext context, String group) {
     objectName.text = '';
     objectInfo.text = '';
     return ScalingButton(
@@ -253,8 +257,6 @@ class _DashboardViewState extends State<DashboardView> {
       },
       child: Container(
         margin: const EdgeInsets.all(5),
-        height: size,
-        width: size,
         decoration: BoxDecoration(
             color: const Color.fromARGB(255, 230, 230, 230),
             borderRadius:
@@ -286,31 +288,34 @@ class _DashboardViewState extends State<DashboardView> {
   Widget buildRoomButton(Room room) {
     var size = (MediaQuery.of(context).size.width - 92) / 3;
 
-    return Hero(
-      tag: room.id + room.name + room.group + room.info,
-      child: ScalingButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => RoomDetail(
-                        room: room,
-                      )));
-        },
-        child: Container(
-          margin: const EdgeInsets.all(5),
-          height: size,
-          width: size,
-          decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius:
-                  SmoothBorderRadius(cornerRadius: 5, cornerSmoothing: 0.6)),
-          child: DefaultTextStyle(
-            style: GoogleFonts.inter(color: Colors.white),
-            child: Center(
-              child: Text(
-                room.name,
-                style: GoogleFonts.inter(color: Colors.white),
+    return HeroMode(
+      enabled: false,
+      child: Hero(
+        tag: room.id + room.name + room.group + room.info,
+        child: ScalingButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => RoomDetail(
+                          room: room,
+                        )));
+          },
+          child: Container(
+            margin: const EdgeInsets.all(5),
+            height: size,
+            width: size,
+            decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius:
+                    SmoothBorderRadius(cornerRadius: 5, cornerSmoothing: 0.6)),
+            child: DefaultTextStyle(
+              style: GoogleFonts.inter(color: Colors.white),
+              child: Center(
+                child: Text(
+                  room.name,
+                  style: GoogleFonts.inter(color: Colors.white),
+                ),
               ),
             ),
           ),

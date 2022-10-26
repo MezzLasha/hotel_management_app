@@ -82,7 +82,6 @@ class _RoomDetailState extends State<RoomDetail> {
                 height: 20,
               ),
               TextFormField(
-                maxLines: 8,
                 enabled: false,
                 initialValue: widget.room.info,
                 decoration: const InputDecoration(
