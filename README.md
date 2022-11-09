@@ -5,7 +5,7 @@ based on BLoC state management
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project was made for learning BLoC state management principles.
 
 Whats Working:
 - Login
